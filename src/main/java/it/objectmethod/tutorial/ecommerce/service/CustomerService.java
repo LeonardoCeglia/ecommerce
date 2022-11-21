@@ -11,6 +11,7 @@ import it.objectmethod.tutorial.ecommerce.repository.CustomerRepository;
 
 @Service
 public class CustomerService {
+    // Commento di test in main
 
 	@Autowired
 	private CustomerRepository custRep;
