@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import it.objectmethod.tutorial.ecommerce.dto.CustomerDto;
 import it.objectmethod.tutorial.ecommerce.dto.LoginDto;
@@ -18,7 +17,7 @@ import it.objectmethod.tutorial.ecommerce.service.CustomerService;
 import it.objectmethod.tutorial.ecommerce.service.JWTService;
 
 @RestController
-@RequestMapping("/api/cust")
+
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
@@ -27,21 +26,22 @@ public class CustomerController {
 	@Autowired
 	private JWTService jwtService;
 
-	@GetMapping("/get-customer")
+	@GetMapping("api/cust/get-customer")
 	// qui metto il request header
 	public CustomerDto getCust(@RequestHeader("auth-token") String token) {
 		Long id = this.jwtService.getUserIdByToken(token);
 		CustomerDto cust1 = customerService.getCustomer(id);
+		cust1.setToken(token);
 		return cust1;
 	}
 
-	@PostMapping("")
+	@PostMapping("api/add-customer")
 	public CustomerDto addCustomer(@RequestBody CustomerDto custDto) {
 
 		return this.customerService.UpdateOrAddNewCustomer(custDto);
 	}
 
-	@PutMapping("")
+	@PutMapping("api/update-customer")
 	public CustomerDto updateCustomer(@RequestBody CustomerDto custDto) {	      
 
 		return this.customerService.UpdateOrAddNewCustomer(custDto);
@@ -54,7 +54,7 @@ public class CustomerController {
 		this.cartService.paidCart(id);
 	}
 
-	@GetMapping("/login")
+	@GetMapping("api/login")
 	public ResponseEntity<CustomerDto> login(@Valid   @RequestBody LoginDto loginDto) {
 		CustomerDto dto = this.customerService.login(loginDto);
 		if (dto == null) {

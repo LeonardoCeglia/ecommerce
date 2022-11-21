@@ -20,14 +20,14 @@ import it.objectmethod.tutorial.ecommerce.service.JWTService;
 import it.objectmethod.tutorial.ecommerce.service.ProductService;
 
 @RestController
-@RequestMapping("/api/pro")
+
 public class ProductController {
 	@Autowired
 	private ProductService productService;
 	@Autowired
 	private JWTService jwtService;
 
-	@GetMapping("/{id}")
+	@GetMapping("api/{id}")
 	public ProductDto getProduct(@PathVariable Long id) {
 		return this.productService.getProduct(id);
 	}
@@ -45,25 +45,25 @@ public class ProductController {
 	}
 	
 
-	@PostMapping("/addPro")
+	@PostMapping("api/addPro")
 	public ProductDto addNewProduct(@Valid @RequestBody ProductDto pro) {
 		ProductDto pro1 = productService.addNewProduct(pro);
 		return pro1;
 	}
 
-	@PutMapping("/updatePro")
+	@PutMapping("api/updatePro")
 	public ProductDto updateProduct(@Valid @RequestBody ProductDto pro) {
 		ProductDto pro1 = productService.addNewProduct(pro);
 		return pro1;
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("api/{id}")
 	void deleteProduct(@PathVariable Long id) {
 
 		this.productService.deleteProduct(id);
 	}
 
-	@PutMapping("/remove-product/{id}")
+	@PutMapping("api/remove-product/{id}")
 	public void updateProduct(@PathVariable Long id) {
 		this.productService.removeProductFromCart(id);
 	}

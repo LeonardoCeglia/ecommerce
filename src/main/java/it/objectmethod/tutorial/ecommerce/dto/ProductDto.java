@@ -14,5 +14,7 @@ public class ProductDto {
 	@NotNull
 	private Double price;
 	private Long cartId;
+	@NotNull
+	private Long supplierId;
 
 }

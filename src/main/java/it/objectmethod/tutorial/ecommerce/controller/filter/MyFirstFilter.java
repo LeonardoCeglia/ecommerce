@@ -1,7 +1,6 @@
 package it.objectmethod.tutorial.ecommerce.controller.filter;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,6 +21,14 @@ public class MyFirstFilter implements Filter {
 	@Autowired
 	private JWTService jwtService;
 
+//	private final String loginUrl = "/api/cust/login";
+//	private final String productListUrl = "/api/pro";
+//	private final String updateProductUrl = "/api/pro/updatePro";
+//	private final String addProductUrl = "/api/pro/addPro";
+//	private final String addSupplierUrl = "/api/supplier/add-new-supplier";
+//	private final String getSupplierUrl = "/api/supplier/get-supp";
+//	private final List<String> allowedUrls = Arrays.asList(loginUrl, productListUrl, updateProductUrl, addProductUrl, addSupplierUrl,getSupplierUrl);
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -30,15 +37,22 @@ public class MyFirstFilter implements Filter {
 		final HttpServletResponse httpResp = (HttpServletResponse) response;
 
 		Boolean permitted = false;
-		String getUrl = httpReq.getRequestURI();
-		String loginUrl = "/api/cust/login";
-		String productListUrl = "/api/pro";
-		String updateProductUrl = "/api/pro/updatePro";
-		String addProductUrl = "/api/pro/addPro";
-		if (loginUrl.equals(getUrl) || productListUrl.equals(getUrl)||addProductUrl.equals(getUrl)||updateProductUrl.equals(getUrl)) {
+		String url = httpReq.getRequestURI();
+		String method = httpReq.getMethod();
 
+		if (url.contains("/api")) {
+//			log.info("chiamata libera");
+//			if (url.endsWith("cust/login") 
+//					|| url.endsWith("pro/updatePro") 
+//					|| url.endsWith("pro/addPro")
+//					|| url.endsWith("supplier/add-new-supplier") && "GET".equals(method)) {
+//
+//				chain.doFilter(request, response);
+//
+//			}
 			log.info("chiamata libera");
 			chain.doFilter(request, response);
+
 
 		} else {
 			log.info("Chiamata con token necesario");
@@ -55,7 +69,6 @@ public class MyFirstFilter implements Filter {
 				httpResp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
 			}
-			httpResp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		}
 
 	}

@@ -18,11 +18,8 @@ public class CartService {
 	@Autowired
 	private CartRepository cartRepo;
 
-
 	public CartDto getCart(Long id) {
 
-		// Optional<Cart> p = this.cartRepo.findById(id);
-		
 		Cart p = cartRepo.findById(id).orElse(null);
 		return this.cartMapper.toDto(p);
 	}

@@ -1,7 +1,5 @@
 package it.objectmethod.tutorial.ecommerce.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +20,10 @@ public class CustomerService {
 	private JWTService jwtService;
 
 	public CustomerDto getCustomer(Long id) {
-	
-		Customer c = custRep.findById(id).orElse(null);
-//		Customer c1 = cu
-//		if(c)
-		
-		return null;
+
+		Customer customer = custRep.findById(id).orElse(null);
+		CustomerDto customerDto = this.custMapp.toDto(customer);
+		return customerDto;
 	};
 
 	public CustomerDto UpdateOrAddNewCustomer(CustomerDto custDto) {
@@ -47,12 +43,11 @@ public class CustomerService {
 		}
 		Customer cust = this.custRep.findByEmailAndPassword(emailOrUserName, password);
 		String token = this.jwtService.createJWTToken(cust);
-		CustomerDto custDto = 	this.custMapp.toDto(cust, token); 
+		CustomerDto custDto = this.custMapp.toDto(cust, token);
 		// TODO finish creating customerdto
 
 		return custDto;
 
 	}
-
 
 }

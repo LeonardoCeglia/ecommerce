@@ -16,13 +16,14 @@ import it.objectmethod.tutorial.ecommerce.entity.Product;
 public interface ProductMapper {
 	// target fa riffeimento alla property che sts nel dto il source
 	// nel entity perche il metodo è toDto
+	@Mapping(target="supplierId",source = "supplier.idSupplier")
 	@Mapping(target = "cartId", source = "cart.idCart")
 	public ProductDto toDto(Product pro);
 ///////////////////////////////////////////////////////////////////////////////////
 	// il target fa rifferimento alla property che sta nell' entity
 	// è il source per il dto perche fa rifferimento all metodo
 	// toEntity
-	
+	@Mapping(target="supplier.idSupplier",source="supplierId" )
 	@Mapping(target = "cart", ignore = true)
 	public Product toEntity(ProductDto proDto);
 ///////////////////////////////////////////////////////////////////////////////////

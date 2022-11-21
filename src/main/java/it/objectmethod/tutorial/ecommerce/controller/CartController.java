@@ -15,14 +15,14 @@ import it.objectmethod.tutorial.ecommerce.service.CartService;
 import it.objectmethod.tutorial.ecommerce.service.JWTService;
 
 @RestController
-@RequestMapping("/api/cart")
+
 public class CartController {
 	@Autowired
 	private CartService cartService;
 	@Autowired
 	private JWTService jwtService;
 
-	@GetMapping("/{id}")
+	@GetMapping("api/get-cart/{id}")
 	CartDto getCart(@PathVariable Long id) {
 		CartDto cart1 = cartService.getCart(id);
 		return cart1;
@@ -41,7 +41,7 @@ public class CartController {
 //		return cart1;
 //	}
 
-	@GetMapping("/findNotPaiedCart")
+	@GetMapping("api/findNotPaiedCart")
 	public CartDto findNotPaiedCart(@RequestParam Long  id) {
 
 		return this.cartService.findCartNotPaied(id);
