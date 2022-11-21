@@ -41,4 +41,6 @@ public interface ProductMapper {
 		}
 
 	}
+	
+	// Commento aggiunto in feature_supplier
 }
